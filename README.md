@@ -42,6 +42,7 @@ VALID_PASSWORD =
 ```
 
 - You need to provide valid values for `VALID_USERNAME` and `VALID_PASSWORD` with a working account.
+- `VALID_USERNAME` You can provide a valid username or email
 -  Please note that the test is designed to run only on the specified website using the provided cookie configuration.
 
 ## Running the Test
