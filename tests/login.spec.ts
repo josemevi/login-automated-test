@@ -21,7 +21,7 @@ test('Login test', async ({ page, context }) => {
   //A similar case like before with the button but using .first() because the several submit buttons inside the html
   await page.locator("[type=submit]").first().click();
 
-  //Assertion using the same username that we used before to check if we're actually logged in
+  //Assertion verifying if the icon element of the logged user is displayed
   await expect(page.locator(".icon-icono_avatar")).toBeVisible();
 
 });
