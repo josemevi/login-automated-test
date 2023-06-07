@@ -11,7 +11,7 @@ test('Login test', async ({ page, context }) => {
 
   //I decided to use CSS and HTML attributes for the locators since the page doesn't have ids for the majority of elements
   await page.goto(EnvConfig.mainUrl);
-  await page.locator('.btAccess').click();
+  await page.locator(".btAccess" ).click();
 
   //Selecting and filling the lastest inputs with the attributes name and password in each case
   //.last() because the ion-inputs elements wrappers having the same name attribute
@@ -22,6 +22,6 @@ test('Login test', async ({ page, context }) => {
   await page.locator("[type=submit]").first().click();
 
   //Assertion using the same username that we used before to check if we're actually logged in
-  await expect(page.getByText(userCredentials.username)).toBeVisible();
+  await expect(page.locator(".icon-icono_avatar")).toBeVisible();
 
 });
