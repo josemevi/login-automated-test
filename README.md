@@ -7,23 +7,20 @@ The main goal is to verify the login of the web page: https://m.apuestas.codere.
 - Playwright requires Node.js version 14 or above. For more details head to: 
 [Playwright System Requirements](https://playwright.dev/docs/troubleshooting#system-requirements)
 
-#3 How to Install
+## How to Install
 
 - Open a terminal inside the project main folder and install the dependecies with your desire package manager, by default (npm):
 
     ```
-    
     npm install
-    
     ```
     
 - Then install the playwright supported browsers
 
     ```
-    
     npx playwright install
-    
     ```
+    
 NOTE: If you have any error please head to [Playwright Installation Docs](https://playwright.dev/docs/intro#installation) 
 
 ## Setting up Test Properties (.env)
@@ -31,29 +28,25 @@ NOTE: If you have any error please head to [Playwright Installation Docs](https:
 - You will have to create a .env file at the main folder of the project in order to make the test work. I'll provide below all the variables and values that you need to put inside the file:
 
 ```
-
 MAIN_URL = https://m.apuestas.codere.es/
 COOKIE_CONSENT_NAME = codere_cookie
 COOKIE_CONSENT_VALUE = accepted
 COOKIE_DOMAIN = m.apuestas.codere.es
 
-VALID_USERNAME = josemevi
-VALID_PASSWORD = David0606!
-
+VALID_USERNAME = 
+VALID_PASSWORD = 
 ```
 
 - Please take in consideration that the test is designed to run only inside the specified website using this cookie configuration. 
 
-- You can change the VALID_USERNAME and VALID_PASSWORD values for any other working account
+- You will have to provide the VALID_USERNAME and VALID_PASSWORD values with a working account
 
 ## How to Run
 
 - Inside the project main folder execute via terminal: 
 
     ```
-    
     npx playwright test tests/login.spec.ts
-    
     ```
 
 - The tests will execute using the default playwright config (headless mode, 2 browsers: chromium, firefox)
@@ -62,12 +55,10 @@ NOTE: the test can also be executed using the webkit browser. I decided to disab
 To enable the webkit again just uncomment this lines inside the playwright.config.ts:
 
 ```
-
     // {
     //   name: 'webkit',
     //   use: { ...devices['Desktop Safari'] },
     // },
-    
 ```
 
 ## Results
@@ -77,14 +68,12 @@ To enable the webkit again just uncomment this lines inside the playwright.confi
 To display the default HTML report write in the console after exiting the test process:
 
     ```
-    
     npx playwright show-report
-    
     ```
-    
+ 
 - playwright normally will show you a message in the console with this command. If the test fails in any step the report will show automatically 
 
-# Folder and Files Explanation
+## Folder and Files Explanation
 
     ├── config                         # Config folder containing .ts relared to the .env reading and mapping
     |  ├──── EnvConfig.ts              # File to map (type with .env data) and export the objects that will be used by the tests.
@@ -109,3 +98,76 @@ To display the default HTML report write in the console after exiting the test p
     └── README.md                      # This file lmao
 
 # About the decisions, approach and more tests cases: 
+
+- First of all I decided to write the test using a combination of types, utils (common functions) and config files in order to create a more friendly, scalable and maintainable architecture for the tests
+
+- For locating the elements inside the HTML I avoided the common (and most recommendable) locators such as .getByLabel(), .getByRole() and .getByText(), this's because I'm used to create tests for webpages
+that uses many different languages using these methods causes to handle a lot of extra information about the elements, also the inner HTML of the elements are more likely to change in the future rather than the classes, ids or names
+attributes
+
+- I decided to implement the "content policy cookie" directly inside the browser to avoid writing extra steps that're not related to the test main purpose
+
+- For securities concerns I'm not incluiding the created account username / password because this repository is public
+
+- The index files inside the majority of the folders are used for [Barrel](https://basarat.gitbook.io/typescript/main-1/barrel) 
+
+## Others Tests Scenarios:
+
+There's a lot of different tests scenarios for a login page
+
+No. // Functional Test Cases // Expected result: 
+
+1.	Verify if a user will be able to login with a valid username and valid password.	Positive (This case)
+2.	Verify if a user cannot login with a valid username and an invalid password.	Negative
+3.	Verify the login page for both, when the field is blank and Submit button is clicked.	Negative
+4.	Verify the ‘Forgot Password’ functionality.	Positive
+5.	Verify the messages for invalid login.	Positive
+6.	Verify the ‘Remember Me’ functionality.	Positive
+7.	Verify if the data in password field is either visible as asterisk or bullet signs.	Positive
+8.	Verify if a user is able to login with a new password only after he/she has changed the password.	Positive
+9.	Verify if the login page allows to log in simultaneously with different credentials in a different browser.	Positive
+10	Verify if the ‘Enter’ key of the keyboard is working correctly on the login page.	Positive
+11. Verify if a user cannot enter the characters more than the specified range in each field (Username and Password).	Negative
+12.	Verify if a user cannot enter the characters more than the specified range in each field (Username and Password).	Positive
+13.	Verify the login page by pressing ‘Back button’ of the browser. It should not allow you to enter into the system once you log out.	Negative
+14.	Verify the timeout functionality of the login session.	Positive
+15.	Verify if a user should not be allowed to log in with different credentials from the same browser at the same time.	Negative
+16.	Verify if a user should be able to login with the same credentials in different browsers at the same time.	Positive
+17.	Verify the Login page against SQL injection attack.	Negative
+18.	Verify the implementation of SSL certificate.	Positive
+
+
+(To be honest there's the [source](https://www.softwaretestinghelp.com/login-page-test-cases/) of this info. I was about to get crazy thinking in 10000 tests cases smh)
+
+
+PD: If you have any question or just want to contact me feel free to write to my email whenever you want. Thank you for your time :D <3 
+
+⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⡿⠿⠛⠛⠛⠛⠛⠛⠛⠛⠛⠛⠿⠿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿
+⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⡿⠟⠋⠉⣀⣤⣤⣤⣶⣶⣶⣶⣿⣿⣶⣶⣶⣤⣤⣀⠉⠛⠿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿
+⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⡿⠛⠁⣀⣴⣾⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣶⣤⣄⠙⠛⢿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿
+⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⠿⠋⣠⣴⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣦⣄⣈⠉⠙⠻⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿
+⣿⣿⣿⣿⣿⣿⣿⣿⠟⠁⣠⣾⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⡷⠄⠈⣿⣿⣿⣿⣿⣿⣿⣿⣿
+⣿⣿⣿⣿⡿⠟⠋⢁⣠⣾⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⡟⠁⠄⠀⣰⣿⣿⣿⣿⣿⣿⣿⣿⣿
+⣿⣿⣿⡟⠀⣠⣶⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⠟⠿⠿⠿⣿⣿⣿⣿⣿⣧⠀⢠⣾⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿
+⣿⣿⣿⡄⠀⠉⡉⠛⣿⣿⣿⣿⣿⣿⣿⣿⣿⡿⠿⣿⣿⣿⣿⣿⣿⣿⣿⡿⠿⢿⣿⣿⡃⢀⣠⣤⣤⣀⣿⣿⣿⣿⣿⣧⠀⠹⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿
+⣿⣿⣿⣿⣶⣄⡈⠀⣸⣿⣿⣿⣿⡿⠋⢀⣀⣀⣀⣸⣿⣿⣿⡁⠀⠀⠀⠠⠀⣠⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣷⡀⠘⣿⣿⣿⣿⠿⠿⣿⣿⣿
+⣿⣿⣿⣿⣿⣿⠁⢠⣿⣿⣿⣿⣿⣷⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣶⣤⠀⣤⣾⣿⣿⣿⣿⣿⣿⣇⢸⣿⣿⣿⣿⣉⣥⣤⣤⣀⡀⠀⠀⠈⠁⣠⡄⠈⠿⣿
+⣿⣿⣿⣿⣿⣿⠀⣼⣿⠿⠿⣿⣿⣿⣿⣿⡇⠈⣿⣿⣿⣿⣿⣿⣿⣿⠀⠻⢿⣿⣿⣿⣿⣿⠿⠃⣸⣿⣿⣿⣿⡛⠛⠻⠿⣿⡇⠀⢀⣿⣿⣿⣷⣤⠀⢸
+⣿⣿⣿⣿⣿⠇⠀⣠⣤⣶⣶⣾⣿⣿⣿⣿⣧⡀⠙⠻⠿⠿⠿⠟⠋⣡⣶⣦⣤⡀⠉⣉⣉⣀⣤⣾⣿⣿⣿⣿⣿⣿⣿⣶⣦⡈⠁⣠⣾⣿⣿⣿⣿⣿⠀⢺
+⣿⣿⣿⠋⣠⡄⢸⣿⣿⠟⢋⣩⣿⣿⣿⣿⣿⣿⣶⣶⣤⣤⣤⣄⠘⢿⣿⣿⡿⠋⣼⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⠟⢁⣴⣿⣿⣿⣿⣿⣿⡿⠀⣰
+⣿⣿⣷⣾⣿⡇⠸⠋⣡⣴⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣶⣤⣈⣁⣠⣾⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⡿⠃⣠⣾⣿⣿⣿⣿⣿⣿⣿⠁⣼⣿
+⣿⣿⣿⣿⣿⡟⠀⠘⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⡟⢁⣼⣿⣿⣿⣿⣿⣿⣿⣿⠃⢠⣿⣿
+⣿⣿⣿⣿⡟⢀⣶⡀⠈⠻⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⠿⣣⣾⣿⣿⣿⣿⣿⣿⣿⣿⠏⠀⣾⣿⣿
+⣿⣿⣿⣿⣧⣿⣿⡇⠀⣄⡈⠻⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣴⣾⣿⣿⣿⣿⣿⣿⣿⣿⣿⠏⠀⣼⣿⣿⣿
+⣿⣿⣿⣿⣿⣿⡟⠀⣼⣿⣿⣷⣬⣭⡙⣏⣹⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⠟⠀⣼⣿⣿⣿⣿
+⣿⣿⣿⣿⣿⡟⠀⣼⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⠏⢀⣼⣿⣿⣿⣿⣿
+⣿⣿⣿⣿⡟⠀⣾⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⠃⢠⣾⣿⣿⣿⣿⣿⣿
+⣿⣿⣿⡿⠀⣸⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⠀⣿⣿⣿⣿⣿⣿⣿⣿
+⣿⣿⡿⠃⢠⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⡏⠀⣿⣿⣿⣿⣿⣿⣿⣿
+⣿⠟⠁⣠⣿⣿⣿⣿⣿⣿⣿⣿⠟⠛⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣷⠀⣿⣿⣿⣿⣿⣿⣿⣿
+⣷⡀⠸⢿⣿⣿⣿⡿⠟⠋⠉⢀⣤⣴⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⠀⣿⣿⣿⣿⣿⣿⣿⣿
+⣿⣷⣄⡈⠉⠉⠀⣀⣤⣶⣾⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⠀⣿⣿⣿⣿⣿⣿⣿⣿
+⣿⣿⣿⣿⣿⣿⣠⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣀⣿⣿⣿⣿⣿⣿⣿⣿
+
+
+
