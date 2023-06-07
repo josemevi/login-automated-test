@@ -69,9 +69,7 @@ NOTE: The test can also be executed using the WebKit browser. By default, it is 
 
 To display the default HTML report, enter the following command in the console after the test process is completed:
 
-    ```
     npx playwright show-report
-    ```
  
 - Playwright will show a message in the console with this command. If any test fails, the report will be displayed automatically.
 
@@ -133,24 +131,24 @@ The repository structure is as follows:
 
 There are various test scenarios for a login page. Here are some examples:
 
-Verify if a user can log in with a valid username and password (positive test case).
-Verify if a user cannot log in with a valid username and an invalid password (negative test case).
-Verify the login page behavior when the fields are blank and the Submit button is clicked (negative test case).
-Verify the functionality of the "Forgot Password" feature (positive test case).
-Verify the display of error messages for invalid login attempts (positive test case).
-Verify the functionality of the "Remember Me" feature (positive test case).
-Verify if the data in the password field is displayed as asterisks or bullet signs (positive test case).
-Verify if a user can log in with a new password only after changing the password (positive test case).
-Verify if the login page allows simultaneous login with different credentials in different browsers (positive test case).
-Verify if pressing the "Enter" key on the keyboard works correctly on the login page (positive test case).
-Verify if a user cannot enter more characters than the specified range in each field (negative test case).
-Verify if a user cannot enter more characters than the specified range in each field (positive test case).
-Verify the behavior of the login page when the "Back" button of the browser is pressed. It should not allow re-entering the system after logging out (negative test case).
-Verify the timeout functionality of the login session (positive test case).
-Verify if a user is not allowed to log in with different credentials from the same browser at the same time (negative test case).
-Verify if a user can log in with the same credentials in different browsers at the same time (positive test case).
-Verify the login page against SQL injection attacks (negative test case).
-Verify the implementation of an SSL certificate (positive test case).
+- Verify if a user can log in with a valid username and password (positive test case).
+- Verify if a user cannot log in with a valid username and an invalid password (negative test case).
+- Verify the login page behavior when the fields are blank and the Submit button is clicked (negative test case).
+- Verify the functionality of the "Forgot Password" feature (positive test case).
+- Verify the display of error messages for invalid login attempts (positive test case).
+- Verify the functionality of the "Remember Me" feature (positive test case).
+- Verify if the data in the password field is displayed as asterisks or bullet signs (positive test case).
+- Verify if a user can log in with a new password only after changing the password (positive test case).
+- Verify if the login page allows simultaneous login with different credentials in different browsers (positive test case).
+- Verify if pressing the "Enter" key on the keyboard works correctly on the login page (positive test case).
+- Verify if a user cannot enter more characters than the specified range in each field (negative test case).
+- Verify if a user cannot enter more characters than the specified range in each field (positive test case).
+- Verify the behavior of the login page when the "Back" button of the browser is pressed. It should not allow re-entering the system after logging out (negative test case).
+- Verify the timeout functionality of the login session (positive test case).
+- Verify if a user is not allowed to log in with different credentials from the same browser at the same time (negative test case).
+- Verify if a user can log in with the same credentials in different browsers at the same time (positive test case).
+- Verify the login page against SQL injection attacks (negative test case).
+- Verify the implementation of an SSL certificate (positive test case).
 
 
 Please note that the list above is not exhaustive, and additional test scenarios can be added based on specific requirements and considerations.
