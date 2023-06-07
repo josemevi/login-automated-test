@@ -1,6 +1,6 @@
 # login-automated-test
 
-The main goal is to verify the login of the web page: https://m.apuestas.codere.es/
+The main goal is to verify the login of the web page: https://m.apuestas.codere.es/ using playwright 
 
 ## System Requirements
 
