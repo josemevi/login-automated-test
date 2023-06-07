@@ -7,25 +7,29 @@ The main goal is to verify the login of the web page: https://m.apuestas.codere.
 - Playwright requires Node.js version 14 or above. For more details head to: 
 [Playwright System Requirements](https://playwright.dev/docs/troubleshooting#system-requirements)
 
-## How to Install
+## Installation
 
-- Open a terminal inside the project main folder and install the dependecies with your desire package manager, by default (npm):
+To install the project dependencies, follow these steps:
+
+1. Open a terminal in the main folder of the project.
+
+2. Install the dependencies using your preferred package manager. By default, npm is used:
 
     ```
     npm install
     ```
     
-- Then install the playwright supported browsers
+3. Install the playwright supported browsers:
 
     ```
     npx playwright install
     ```
     
-NOTE: If you have any error please head to [Playwright Installation Docs](https://playwright.dev/docs/intro#installation) 
+NOTE: If you encounter any errors during installation, please refer to tho [Playwright Installation Docs](https://playwright.dev/docs/intro#installation) 
 
 ## Setting up Test Properties (.env)
 
-- You will have to create a .env file at the main folder of the project in order to make the test work. I'll provide below all the variables and values that you need to put inside the file:
+- To make the test work, you need to create a .env file in the main folder of the project. Add the following variables and their corresponding values to the file:
 
 ```
 MAIN_URL = https://m.apuestas.codere.es/
@@ -37,22 +41,20 @@ VALID_USERNAME =
 VALID_PASSWORD = 
 ```
 
-- Please take in consideration that the test is designed to run only inside the specified website using this cookie configuration. 
+- You need to provide valid values for `VALID_USERNAME` and `VALID_PASSWORD` with a working account.
+-  Please note that the test is designed to run only on the specified website using the provided cookie configuration.
 
-- You will have to provide the VALID_USERNAME and VALID_PASSWORD values with a working account
+## Running the Test
 
-## How to Run
-
-- Inside the project main folder execute via terminal: 
+- To run the tests, execute the following command in the terminal from the project's main folder: 
 
     ```
     npx playwright test tests/login.spec.ts
     ```
 
-- The tests will execute using the default playwright config (headless mode, 2 browsers: chromium, firefox)
+- The tests will execute using the default playwright configuration in headless mode and on two browsers: Chromium and Firefox.
 
-NOTE: the test can also be executed using the webkit browser. I decided to disable this by default because the website doesn't look to work properly with this browser and the tests may randomly fail sometimes.
-To enable the webkit again just uncomment this lines inside the playwright.config.ts:
+NOTE: The test can also be executed using the WebKit browser. By default, it is disabled because the website may not function properly with this browser, leading to potential test failures. To enable WebKit, uncomment the following lines in `playwright.config.ts`:
 
 ```
     // {
@@ -61,86 +63,99 @@ To enable the webkit again just uncomment this lines inside the playwright.confi
     // },
 ```
 
-## Results
+## Test Results
 
-- Playwright by default will create the test results inside the folder "test-results" (test-results folder will only be created when you executed the test once).
+- By default, Playwright will create the test results inside the "test-results" folder. This folder will be created after running the tests for the first time.
 
-To display the default HTML report write in the console after exiting the test process:
+To display the default HTML report, enter the following command in the console after the test process is completed:
 
     ```
     npx playwright show-report
     ```
  
-- playwright normally will show you a message in the console with this command. If the test fails in any step the report will show automatically 
+- Playwright will show a message in the console with this command. If any test fails, the report will be displayed automatically.
 
-## Folder and Files Explanation
+## Folder and File Structure
 
-    ├── config                         # Config folder containing .ts relared to the .env reading and mapping
-    |  ├──── EnvConfig.ts              # File to map (type with .env data) and export the objects that will be used by the tests.
-    |  ├──── index.ts                  # Barrel to handle the export            
-    ├── node_modules                   # Well the good ol' node_modules will appear after the installation step
-    ├── playwright-report              # Template generated and used by playwright to create the reports
-    ├── test-results                   # Will appear after running the test once, will store the generated report temporarily until the process is exited
-    ├── tests                          # Tests folder with the tests files
-    |  ├──── login.spec.ts             # The only test inside the project. Here we join the config and untils to make the tests
-    ├── types                          # Inside we declare the base type for creating the objects (const) that're used inside the project
-    |  ├──── env.type.ts               # type for map configuration related variables
-    |  ├──── index.ts                  # Barrel to handle the export  
-    |  ├──── userCredentials.type.ts   # type for map user related variables 
-    └── utils                          # folder cointaining common and reusable methods
-    |  ├──── index.ts                  # Barrel to handle the export 
-    |  ├──── setCookies.ts             # Creating and mapping the cookie array (in a single file because can be reused in the future for other tests)
-    └── .env                           # Enviromental variables containing the data required for the tests
-    └── .gitignore                     # specifies intentionally untracked files that Git should ignore
-    └── package-lock.json              # The explanation is a long and tiring one just use the first google result 
-    └── package.json                   # contains descriptive and functional metadata about a project
-    └── playwright.config.ts           # Playwright file for extended configuration
-    └── README.md                      # This file lmao
+The repository structure is as follows:
 
-# About the decisions, approach and more tests cases: 
+    ├── config                         
+    |  ├──── EnvConfig.ts              
+    |  ├──── index.ts                  
+    ├── node_modules                   
+    ├── playwright-report              
+    ├── test-results                   
+    ├── tests                          
+    |  ├──── login.spec.ts             
+    ├── types                          
+    |  ├──── env.type.ts               
+    |  ├──── index.ts                  
+    |  ├──── userCredentials.type.ts   
+    └── utils                          
+    |  ├──── index.ts                  
+    |  ├──── setCookies.ts             
+    └── .env                           
+    └── .gitignore                     
+    └── package-lock.json              
+    └── package.json                   
+    └── playwright.config.ts           
+    └── README.md                      
+    
+- `config`: Contains TypeScript files related to reading and mapping the .env file.
+- `node_modules`: Folder created after the installation of project dependencies.
+- `playwright-report`: Template generated and used by Playwright to create reports.
+- `test-results`: Folder that stores the generated test reports temporarily.
+- `tests`: Folder containing the test files. Currently, only login.spec.ts exists.
+- `types`: Contains TypeScript files that declare base types for creating objects used in the project.
+- `utils`: Folder containing common and reusable methods.
+- `.env`: Environmental variables file containing the required data for the tests.
+- `.gitignore`: Specifies intentionally untracked files that Git should ignore.
+- `package-lock.json`: Contains detailed information about project dependencies.
+- `package.json`: Contains descriptive and functional metadata about the project.
+- `playwright.config.ts`: Playwright configuration file for extended configuration.
+- `README.md`: The file you are currently reading.
 
-- First of all I decided to write the test using a combination of types, utils (common functions) and config files in order to create a more friendly, scalable and maintainable architecture for the tests
+# Additional Information
 
-- For locating the elements inside the HTML I avoided the common (and most recommendable) locators such as .getByLabel(), .getByRole() and .getByText(), this's because I'm used to create tests for webpages
-that uses many different languages using these methods causes to handle a lot of extra information about the elements, also the inner HTML of the elements are more likely to change in the future rather than the classes, ids or names
-attributes
+## Test Approach and Decisions
 
-- I decided to implement the "content policy cookie" directly inside the browser to avoid writing extra steps that're not related to the test main purpose
+- The tests in this repository are written using a combination of types, utility functions, and configuration files to create a more friendly, scalable, and maintainable architecture.
 
-- For securities concerns I'm not incluiding the created account username / password because this repository is public
+- To locate elements within the HTML, commonly used locators such as `.getByLabel()`, `.getByRole()`, and `.getByText()` were avoided. This decision was made because the tests may need to handle different languages in the future, and using these methods would involve dealing with extra information about the elements. Instead, relying on classes, IDs, or names attributes is more reliable since the inner HTML of elements is more likely to change than these attributes.
 
-- The index files inside the majority of the folders are used for [Barrel](https://basarat.gitbook.io/typescript/main-1/barrel) 
+- The "content policy cookie" is implemented directly within the browser to avoid writing extra steps unrelated to the main purpose of the test.
 
-## Others Tests Scenarios:
+- The repository does not include the created account's username/password due to security concerns, as it is a public repository.
 
-There's a lot of different tests scenarios for a login page
+- The index files within most folders are used for Barrel exports.
 
-No. // Functional Test Cases // Expected result: 
+## Additional Test Scenarios:
 
-1.	Verify if a user will be able to login with a valid username and valid password.	Positive (This case)
-2.	Verify if a user cannot login with a valid username and an invalid password.	Negative
-3.	Verify the login page for both, when the field is blank and Submit button is clicked.	Negative
-4.	Verify the ‘Forgot Password’ functionality.	Positive
-5.	Verify the messages for invalid login.	Positive
-6.	Verify the ‘Remember Me’ functionality.	Positive
-7.	Verify if the data in password field is either visible as asterisk or bullet signs.	Positive
-8.	Verify if a user is able to login with a new password only after he/she has changed the password.	Positive
-9.	Verify if the login page allows to log in simultaneously with different credentials in a different browser.	Positive
-10	Verify if the ‘Enter’ key of the keyboard is working correctly on the login page.	Positive
-11. Verify if a user cannot enter the characters more than the specified range in each field (Username and Password).	Negative
-12.	Verify if a user cannot enter the characters more than the specified range in each field (Username and Password).	Positive
-13.	Verify the login page by pressing ‘Back button’ of the browser. It should not allow you to enter into the system once you log out.	Negative
-14.	Verify the timeout functionality of the login session.	Positive
-15.	Verify if a user should not be allowed to log in with different credentials from the same browser at the same time.	Negative
-16.	Verify if a user should be able to login with the same credentials in different browsers at the same time.	Positive
-17.	Verify the Login page against SQL injection attack.	Negative
-18.	Verify the implementation of SSL certificate.	Positive
+There are various test scenarios for a login page. Here are some examples:
 
-
-(To be honest there's the [source](https://www.softwaretestinghelp.com/login-page-test-cases/) of this info. I was about to get crazy thinking in 10000 tests cases smh)
+Verify if a user can log in with a valid username and password (positive test case).
+Verify if a user cannot log in with a valid username and an invalid password (negative test case).
+Verify the login page behavior when the fields are blank and the Submit button is clicked (negative test case).
+Verify the functionality of the "Forgot Password" feature (positive test case).
+Verify the display of error messages for invalid login attempts (positive test case).
+Verify the functionality of the "Remember Me" feature (positive test case).
+Verify if the data in the password field is displayed as asterisks or bullet signs (positive test case).
+Verify if a user can log in with a new password only after changing the password (positive test case).
+Verify if the login page allows simultaneous login with different credentials in different browsers (positive test case).
+Verify if pressing the "Enter" key on the keyboard works correctly on the login page (positive test case).
+Verify if a user cannot enter more characters than the specified range in each field (negative test case).
+Verify if a user cannot enter more characters than the specified range in each field (positive test case).
+Verify the behavior of the login page when the "Back" button of the browser is pressed. It should not allow re-entering the system after logging out (negative test case).
+Verify the timeout functionality of the login session (positive test case).
+Verify if a user is not allowed to log in with different credentials from the same browser at the same time (negative test case).
+Verify if a user can log in with the same credentials in different browsers at the same time (positive test case).
+Verify the login page against SQL injection attacks (negative test case).
+Verify the implementation of an SSL certificate (positive test case).
 
 
-PD: If you have any question or just want to contact me feel free to write to my email whenever you want. Thank you for your time :D <3 
+Please note that the list above is not exhaustive, and additional test scenarios can be added based on specific requirements and considerations.
+
+If you have any questions or need further assistance, feel free to contact me via email. Thank you for your time! :D <3
 
 ⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⡿⠿⠛⠛⠛⠛⠛⠛⠛⠛⠛⠛⠿⠿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿
 ⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⡿⠟⠋⠉⣀⣤⣤⣤⣶⣶⣶⣶⣿⣿⣶⣶⣶⣤⣤⣀⠉⠛⠿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿
